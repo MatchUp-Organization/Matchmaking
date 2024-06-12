@@ -86,7 +86,7 @@ function findPlayerByPosition(dataset, positions) {
     return null;
 }
 
-function divideIntoTeams(dataset) {
+function divideIntoTeams(dataset, size) {
     const teams = [];
 
     for (let i = 0; i < 2; i++) {
@@ -94,7 +94,7 @@ function divideIntoTeams(dataset) {
         const positions = ['Goalkeeper', 'Defender', 'Midfielder', 'Forward'];
         let hasEquipment = false;
 
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < size; j++) {
             let selectedPlayer = null;
 
             if (positions.length > 0) {
@@ -141,17 +141,27 @@ const dataset = readJsonFile();
 // dataset.forEach(person => {
 //     console.log(person);
 // });
-
 const filteredDataset = filterBySportAndGender(dataset, sport, gender);
-
+// filteredDataset.forEach(person => {
+//     console.log(person);
+// });
 const ageGroups = createAgeGroups(filteredDataset, ageRange);
-
+// ageGroups.forEach(person => {
+//     console.log(person);
+// });
 const groupedByPosition = ensurePositions(ageGroups, sport);
+// groupedByPosition.forEach(person => {
+//     console.log(person);
+// });
 
-const equippedPlayers = ensureEquipment(groupedByPosition);
-
+// const equippedPlayers = ensureEquipment(groupedByPosition);
+// equippedPlayers.forEach(person => {
+//     console.log(person);
+// });
 const prioritizedPlayers = prioritizePlayers(groupedByPosition);
-
+// prioritizedPlayers.forEach(person => {
+//     console.log(person);
+// });
 const teams = divideIntoTeams(prioritizedPlayers, size);
 
 teams.forEach(team => {
@@ -161,4 +171,4 @@ teams.forEach(team => {
     });
 });
 
-// fs.writeFileSync('teams.json', JSON.stringify(teams, null, 4));
+fs.writeFileSync('teams.json', JSON.stringify(teams, null, 4));
